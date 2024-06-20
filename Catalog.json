@@ -1,0 +1,1 @@
+[{"model": "Catalog.category", "pk": 1, "fields": {"name": "Car", "description": null}}, {"model": "Catalog.product", "pk": 1, "fields": {"name": "Mazda RX-7", "description": null, "photo": "", "category": 1, "price": 2000000.0, "created_at": null, "updated_at": null, "manufactured_at": null}}]
