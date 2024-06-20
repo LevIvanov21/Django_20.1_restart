@@ -1,0 +1,10 @@
+[
+  {
+    "model": "Catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Car",
+      "description": null
+    }
+  }
+]
