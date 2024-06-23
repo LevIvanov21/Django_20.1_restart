@@ -1,0 +1,22 @@
+{% extends 'Catalog/base.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for product in object_list %}
+            <div class="col">
+                <div class="card shadow-sm" style="width:100%;height:100%;background-size:cover">
+                    <img src="{{ product.photo | media_filter }}" style="width:100%; height:100%; object-fit: cover">
+                    <div class="card-body">
+                        <p class="card-text"> {{ product.name }} </p>
+                        <li> Категория : {{ product.category }}</li>
+                        <p class="card-text"> {{ product.description|slice:100 }} </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
