@@ -27,7 +27,7 @@ class Product(models.Model):
         blank=True, null=True, verbose_name="Описание", help_text="Введите описание"
     )
     photo = models.ImageField(
-        upload_to="",
+        upload_to="product/photo",
         blank=True,
         null=True,
         verbose_name="Фото",
@@ -42,7 +42,10 @@ class Product(models.Model):
         null=True,
         related_name='products',
     )
-    price = models.FloatField(verbose_name="Цена",help_text="Введите описание")
+    price = models.FloatField(
+        verbose_name="Цена",
+        help_text="Введите описание"
+    )
     created_at = models.DateField(
         blank=True,
         null=True,
@@ -52,8 +55,20 @@ class Product(models.Model):
     updated_at = models.DateField(
         blank=True, null=True, verbose_name="Дата последнего изменения"
     )
+
     manufactured_at = models.DateField(
         blank=True, null=True, verbose_name="Дата производства продукта"
+    )
+    slug = models.SlugField(
+        blank=True,
+        null=True,
+        max_length=150,
+        unique=True,
+        verbose_name="slug"
+    )
+    viewed = models.IntegerField(
+        default=0,
+        verbose_name='Количество просмотров'
     )
 
     class Meta:
@@ -64,3 +79,33 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+
+class Version(models.Model):
+    """Версия продукта"""
+    name = models.CharField(
+        max_length=150,
+        verbose_name='Наименование',
+        blank=True,
+        null=True,
+    )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        verbose_name='Продукт',
+        related_name='versions',
+    )
+    version_number = models.PositiveIntegerField(
+        verbose_name='Номер версии',
+    )
+    is_actual = models.BooleanField(
+        default=True,
+        verbose_name='Актуальная',
+    )
+
+    def __str__(self):
+        return f'{self.name}, версия - {self.version_number}'
+
+    class Meta:
+        verbose_name = 'Версия'
+        verbose_name_plural = 'Версии'
+        ordering = ['product', 'version_number']
