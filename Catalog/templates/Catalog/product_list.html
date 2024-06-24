@@ -1,6 +1,14 @@
 {% extends 'Catalog/base.html' %}
 {% load my_tags %}
 {% block content %}
+<div class="container">
+    <div class="row gy-3 mx-10">
+        <div class="col text-center">
+            <a class="btn btn-lg btn-block btn-outline-info" href="{% url 'Catalog:product_create' %}" role="button">Добавить
+                продукт</a>
+        </div>
+    </div>
+</div>
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -11,7 +19,21 @@
                     <div class="card-body">
                         <p class="card-text"> {{ product.name }} </p>
                         <li> Категория : {{ product.category }}</li>
+                        <li> Активная версия: {{ product.active_version_name }} №{{ product.active_version }} </li>
                         <p class="card-text"> {{ product.description|slice:100 }} </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="col text-center">
+                                <div class="btn-group">
+                                    <a class="btn btn-light" href="{% url 'Catalog:product_detail' product.pk %}"
+                                       role="button">Просмотр</a>
+                                    <a class="btn btn-primary" href="{% url 'Catalog:product_update' product.pk %}"
+                                       role="button">Редактирование</a>
+                                    <a class="btn btn-danger" href="{% url 'Catalog:product_delete' product.pk %}"
+                                       role="button">Удалить</a>
+                                </div>
+                            </div>
+                            <small class="text-body-secondary"></small>
+                        </div>
                     </div>
                 </div>
             </div>
